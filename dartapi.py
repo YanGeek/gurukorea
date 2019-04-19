@@ -10,8 +10,11 @@ API_KEY="dc33c48f272b1248e6aa8877e06472cd5c3ad98e"
 
 
 ##종목_반복필요
+
 company_code="042110"
 # company_code="058610"
+
+# 회사코드 입력 > rcpno 값 출력 함수
 def make_report(company_code):
 
 
@@ -50,6 +53,8 @@ def make_report(company_code):
 
 ##테이블1{자산총계, 부채총계, 자본총계}, 테이블2{매출액} 을 가져오고 싶은디..
 
+# 재무제표를 찾기 함수
+
 def find_table(url2,rcpno):
     temp=urlopen(url2)
     r=temp.read()
@@ -65,7 +70,7 @@ def find_table(url2,rcpno):
     e=e.replace("\'","")
     dcmo=int(e)
 
-    # 매출 정보 등을 가져오기
+
 
 # 아래 함수로 변경 line85-
 # url2 = make_report(company_code)
@@ -78,6 +83,8 @@ def find_table(url2,rcpno):
 # body=xmlsoup.find("body")
 # table=body.find_all("table")
 # p = parser.make2d(table[3])
+
+    # 매출 정보 등을 가져오기
     url3="http://dart.fss.or.kr/report/viewer.do?rcpNo="+rcpno+"&dcmNo="+str(dcmo)+"&eleId=15&offset=297450&length=378975&dtd=dart3.xsd"
 
     # http://dart.fss.or.kr/report/viewer.do?rcpNo=20170811001153&dcmNo=5746981&eleId=15
@@ -120,6 +127,8 @@ def find_table(url2,rcpno):
 #
 # print(sheet["28기3분기_3개월"].iloc[0])
 
+
+# 분기별 매출 총 이익률 구한 후 dataframe 리턴 함수
 def make_profit(sheet,name_list,value_list):
     # 매출총이익률 = 매출총이익 / 매출액*100
     # 매출총이익 = 매출액 - 매출원가
@@ -160,8 +169,11 @@ def make_profit(sheet,name_list,value_list):
 
 
 #이걸 다긁어와야하는데. 으잉?!
-company_list=list(["000400","004990","005930","014680","214370","271560","217270","280360"])
-company_name=list(["롯데손해보험","롯데지주","삼성전자","한솔케미칼","케어젠","오리온","넵튠","롯데제과"])
+
+# 기업코드 리스트, for문 활용 다수 기업의 매출 총 이익률 테이블 정
+
+company_list=list(["004990","005930","014680","214370","271560"])
+company_name=list(["롯데지주","삼성전자","한솔케미칼","케어젠","오리온"])
 
 output_last=pd.DataFrame(columns=["구분", "최근_분기", "최근_분기_누적","이전_분기","이전_분기_누적"])
 

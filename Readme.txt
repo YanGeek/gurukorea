@@ -1,3 +1,7 @@
+Out of range 해결 안됨.
+
+
+
 Heedongui-MacBookPro:gurukorea yanggeek$ python3 dartapi.py
 롯데손해보험 is error
 'rcp_no'
